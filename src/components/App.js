@@ -20,7 +20,7 @@ Data.populateRenderData();
     // Apply forces - move actual locations based on force, damping and mass
 
     // Prepare canvas for next frame
-    ctx.fillStyle = '#333333'
+    ctx.fillStyle = '#111111'
     ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height)
 
     // Draw links
