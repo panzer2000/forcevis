@@ -1,38 +1,121 @@
-.App {
-  text-align: center;
+#app {
+  height: 100vh;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+html, body {
+  height: 100vh;
+  padding: 0;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: #000000;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.flex-master {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  flex-wrap: nowrap;
+  height: 100vh;
+  overflow: auto;
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+}
+.banner {
+  flex: none; /* fixed size */
+  padding: 5px;
+  font-size: 10pt;
+  font-weight: bold;
+  background: #3C3C3C;
   color: white;
 }
-
-.App-link {
-  color: #61dafb;
+.page-content {
+  flex: 1;/* resize in container */
+  overflow: auto; /* IMPORTANT for FireFox */
+  /* new flex container for content */
+  display: flex;
+  flex-direction: row;
+}
+.sidebar-left {
+  flex: none;
+  background: #252526;
+  padding: 10px;
+  padding-left: 20px;
+  transition: width ease 0.3s;
+  overflow: auto;
+  color: white;
+}
+.menu {
+  flex: none;
+  background: #333333;
+  padding-top: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 30px;
+  width: 32px; 
+  overflow: auto;
+  color: white;
+}
+.menuitem {
+  flex: none;
+  padding-top: 10px;
+  padding-left: 0px;
+  padding-right: 0px;
+  padding-bottom: 10px;
+  width: 32px; 
+  overflow: auto;
+  color: white;
+  filter: brightness(1);
+}
+.menuitem:hover {
+  flex: none;
+  padding-top: 10px;
+  padding-left: 0px;
+  padding-right: 0px;
+  padding-bottom: 10px;
+  width: 32px; 
+  overflow: auto;
+  color: white;
+  filter: brightness(3);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.collapseButton {
+  flex: none;
+  padding: 1px;
+  color: white;
+  filter: brightness(1);
+}
+.collapseButton:hover {
+  flex: none;
+  padding: 1px;
+  color: white;
+  filter: brightness(3);
+}
+
+.splitter {
+  flex: none;
+  width: 1px;
+  cursor: col-resize;
+  background: #000000;
+}
+.content-container {
+  flex: 1 1 auto;
+  background: #1e1e1e;
+  padding: 0px;
+  width: 100vh;
+  overflow-y: auto;
+  color: white;
+  display: flex; /* new flex for content/ads*/
+  flex-direction: row;
+}
+.main-content {
+  flex: 1 1 auto;
+  width: 100vh;
+  padding: 0px;
+  border:0
+}
+
+footer {
+  flex: 0 0 auto;
+  font-size: 10pt;
+  background: #3C3C3C;
+  color: white;
+  padding: 5px;
 }

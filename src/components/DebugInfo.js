@@ -32,6 +32,7 @@ import * as Data from './Data';
     ctx.font      = "normal 12pt Arial";
     ctx.fillText(Data.baseData.baseNodes.length + " objects", 250, 26);
     ctx.fillText(Data.baseData.baseLinks.length + " links", 500, 26);
-
+    ctx.fillText(ctx.canvas.width + " width", 250, 50);
+    ctx.fillText(ctx.canvas.height + " height", 250, 100);
     showFps(ctx)
   }
