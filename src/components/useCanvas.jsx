@@ -2,10 +2,6 @@ import { useRef, useEffect } from 'react'
 
 function resizeCanvasToDisplaySize(context) {
     
-    const { width, height } = context.canvas.getBoundingClientRect()
-    // context.canvas.width  = window.innerWidth - 200;
-    // context.canvas.height = window.innerHeight;
-
     var parent = context.canvas.parentNode,
     styles = getComputedStyle(parent),
     w = parseInt(styles.getPropertyValue("width"), 10),
@@ -32,8 +28,7 @@ const useCanvas = (draw, options={}) => {
     const render = () => {
       frameCount++
       resizeCanvasToDisplaySize(context)
-      //context.canvas.width  = window.innerWidth - 5;
-      //context.canvas.height = window.innerHeight- 5;
+
       draw(context, frameCount)
       animationFrameId = window.requestAnimationFrame(render)
     }

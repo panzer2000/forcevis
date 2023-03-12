@@ -12,12 +12,12 @@ import * as Data from './Data';
   export function showFps(ctx){
     timeMeasurements.push(performance.now());
 
-  const msPassed = timeMeasurements[timeMeasurements.length - 1] - timeMeasurements[0];
-  
-  if (msPassed >= updateEachSecond * 1000) {
-    fps = Math.round(timeMeasurements.length / msPassed * 1000 * decimalPlacesRatio) / decimalPlacesRatio;
-    timeMeasurements = [];
-  }
+    const msPassed = timeMeasurements[timeMeasurements.length - 1] - timeMeasurements[0];
+    
+    if (msPassed >= updateEachSecond * 1000) {
+      fps = Math.round(timeMeasurements.length / msPassed * 1000 * decimalPlacesRatio) / decimalPlacesRatio;
+      timeMeasurements = [];
+    }
   
     ctx.fillStyle = "White";
     ctx.font      = "normal 16pt Arial";
