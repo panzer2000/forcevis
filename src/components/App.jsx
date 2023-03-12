@@ -1,5 +1,6 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+import { useState } from "react";
+
 import CanvasHolder from './CanvasHolder';
 import Banner from './Banner';
 import SidePanel from './SidePanel';
@@ -9,44 +10,34 @@ import '../App.css';
 
 export function App() {
       
+  const [panelWidth, setPanelWidth] = useState("200px"); 
 
+  const expandPanel = () =>
+  {
+    setPanelWidth('200px')
+  }
+
+  const contractPanel = () =>
+  {
+    setPanelWidth('0x')
+  }
 
   return (
-    // <div class="flex-master">
-    //   <div class="page-header">
-    //   <Banner />
-    //   </div>
-      
-    //   <table>
-    //     <td class="sidebar-left" style={{width: "200px"}}>
-    //     <SidePanel/>
-    //     </td>
-    //     <td style={{width: "500px"}}>
-    //     <CanvasHolder />
-    //     </td>
-    //   </table>
-    //   <div class="footer"><Footer/></div>
-      
-    // </div>
-
+   
     <div class="flex-master">
         <header class="banner">
             <Banner />
         </header>
 
         <div class="page-content">
-        <nav class="menu">
-              <Menu />
-            </nav>
-            <nav >
-              <SidePanel />
-            </nav>
+            <nav class="menu">
+              <Menu expand = {expandPanel} contract = {contractPanel}/>
+            </nav>            
+            <SidePanel panelWidth = {panelWidth} expand = {expandPanel} contract = {contractPanel}/>
             <div class="splitter">
             </div>
-            <div class="content-container">
-  
+            <div class="content-container">  
                 <CanvasHolder />
-
             </div>
         </div>
 

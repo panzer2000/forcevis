@@ -7,10 +7,19 @@ export var renderData // The filtered, group expand/collapse-aware set of baseDa
 
 // The user decides to start with either 
 export function populateRenderData(initOption){
+//console.log("populateRenderData");
+   baseData.baseNodes.forEach(element => {
+      renderData.nodes.push(element)
+   });
 
+   baseData.baseLinks.forEach(element => {
+      renderData.links.push(element)
+   });
 
-
-   
+   baseData.baseGroups.forEach(element => {
+      renderData.groups.push(element)
+   });
+   //console.log("end of populateRenderData");
 }
 
 export function populateBaseData(){

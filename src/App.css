@@ -38,18 +38,18 @@ html, body {
   background: #252526;
   padding: 10px;
   padding-left: 20px;
-  transition: width ease 0.3s;
+  transition: width ease 0.1s;
   overflow: auto;
   color: white;
 }
 .menu {
   flex: none;
   background: #333333;
-  padding-top: 5px;
-  padding-left: 10px;
-  padding-right: 10px;
+  padding-top: 10px;
+  padding-left: 15px;
+  padding-right: 15x;
   padding-bottom: 30px;
-  width: 32px; 
+  width: 47px; 
   overflow: auto;
   color: white;
 }
@@ -61,8 +61,10 @@ html, body {
   padding-bottom: 10px;
   width: 32px; 
   overflow: auto;
-  color: white;
-  filter: brightness(1);
+  color: rgb(186, 38, 38);
+  filter: drop-shadow(2px 2px 2px black);
+  filter: brightness(0.6);
+  
 }
 .menuitem:hover {
   flex: none;
@@ -73,7 +75,7 @@ html, body {
   width: 32px; 
   overflow: auto;
   color: white;
-  filter: brightness(3);
+  filter: brightness(1);
 }
 
 .collapseButton {

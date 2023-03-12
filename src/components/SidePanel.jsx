@@ -1,20 +1,16 @@
 import React from 'react';
-import { useState } from "react";
-import ReactDOM from 'react-dom/client';
 
+export function SidePanel({panelWidth, expand, contract}) {
+  
 
-
-export function SidePanel() {
-
-    const [panelWidth, setPanelWidth] = useState("200px"); 
-   
-    return (
-        <div class="sidebar-left" style={{width: panelWidth}}>
+    if (panelWidth == '200px') {        
+        return (
+        <div class="sidebar-left" style={{width: '200px'}}>
             <div >
                 <img class="collapseButton"
                     src="icons4.png"
                     alt="car"
-                    onClick={collapseClick}
+                    onClick={contract}
                     style={{float: 'right'}}
                 />
             </div>
@@ -23,21 +19,19 @@ export function SidePanel() {
                 {panelWidth}<p/>
                 Data
             </div>
-        </div>
-    )
+        </div>)
+    } else {
+        return <div class="sidebar-left" style={{width: '0px', padding: 0}}></div>;
+    }
+
 
     function collapseClick()
     {
-        if(panelWidth === '10px')
-            setPanelWidth('200px')
+        if(panelWidth == '0px')
+            expand()
         else
-            setPanelWidth('10px');
+            contract()
     }
-}
-
-export function collapse()
-{
-    //setPanelWidth('200px')
 }
 
 

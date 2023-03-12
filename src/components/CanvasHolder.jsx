@@ -9,8 +9,10 @@ export function CanvasHolder() {
     // Grab our base data
     Data.populateBaseData();
     
-    Data.populateRenderData(Data.InitOption.CollapseAll);
+    //Data.populateRenderData(Data.InitOption.CollapseAll);
     
+    console.log(Data.baseData)
+
     // Draw is the primary play loop. It is executed 60 times per second from within useCanvas.jsx
     // This function need to do everything that is required to calculate /  modify / paint the next frame on the Canvas
       const draw = (ctx, frameCount) => {
