@@ -1,9 +1,9 @@
 import React from 'react';
 
-export function SidePanel({panelWidth, expand, contract}) {
+export function SidePanel({panelWidth, panelState, expand, contract}) {
   
 
-    if (panelWidth == '200px') {        
+    if (panelWidth === '200px') {        
         return (
         <div class="sidebar-left" style={{width: '200px'}}>
             <div >
@@ -24,14 +24,6 @@ export function SidePanel({panelWidth, expand, contract}) {
         return <div class="sidebar-left" style={{width: '0px', padding: 0}}></div>;
     }
 
-
-    function collapseClick()
-    {
-        if(panelWidth == '0px')
-            expand()
-        else
-            contract()
-    }
 }
 
 

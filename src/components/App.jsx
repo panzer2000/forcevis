@@ -11,6 +11,7 @@ import '../App.css';
 export function App() {
       
   const [panelWidth, setPanelWidth] = useState("200px"); 
+  const [panelState, setPanelState] = useState("Data"); 
 
   const expandPanel = () =>
   {
@@ -31,9 +32,9 @@ export function App() {
 
         <div class="page-content">
             <nav class="menu">
-              <Menu expand = {expandPanel} contract = {contractPanel}/>
+              <Menu expand = {expandPanel} contract = {contractPanel} panelState = {panelState}/>
             </nav>            
-            <SidePanel panelWidth = {panelWidth} expand = {expandPanel} contract = {contractPanel}/>
+            <SidePanel panelWidth = {panelWidth} panelState = {panelState} expand = {expandPanel} contract = {contractPanel}/>
             <div class="splitter">
             </div>
             <div class="content-container">  
