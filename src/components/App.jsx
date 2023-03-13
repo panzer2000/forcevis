@@ -7,21 +7,29 @@ import SidePanel from './SidePanel';
 import Footer from './Footer';
 import Menu from './Menu';
 import '../App.css';
+import * as Data from './Data';
 
 export function App() {
       
   const [panelWidth, setPanelWidth] = useState("200px"); 
   const [panelState, setPanelState] = useState("Data"); 
 
-  const expandPanel = () =>
+  const expandPanel = (newPanelState) =>
   {
     setPanelWidth('200px')
+    console.log(newPanelState)
+    setPanelState(newPanelState)
   }
 
   const contractPanel = () =>
   {
     setPanelWidth('0x')
+    setPanelState("Hidden")
   }
+
+  // If we haven't got any data initialised, do it now
+  if(Data.baseData == null ? Data.populateBaseData(): null);
+    
 
   return (
    

@@ -14,11 +14,27 @@ export function SidePanel({panelWidth, panelState, expand, contract}) {
                     style={{float: 'right'}}
                 />
             </div>
+            { panelState == "Data" && 
+                <div>
+                    {panelWidth}<p/>
+                    Data
+                </div>   
+            }
+            
+            { panelState == "Filter" && 
+                <div>
+                    {panelWidth}<p/>
+                    Filter
+                </div>   
+            }
 
-            <div>
-                {panelWidth}<p/>
-                Data
-            </div>
+            { panelState == "Settings" && 
+                <div>
+                    {panelWidth}<p/>
+                    Settings
+                </div>   
+            }
+
         </div>)
     } else {
         return <div class="sidebar-left" style={{width: '0px', padding: 0}}></div>;
