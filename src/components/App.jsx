@@ -11,13 +11,13 @@ import * as Data from './Data';
 
 export function App() {
       
-  const [panelWidth, setPanelWidth] = useState("200px"); 
-  const [panelState, setPanelState] = useState("Data"); 
+  const [panelWidth, setPanelWidth] = useState("0px"); 
+  const [panelState, setPanelState] = useState("Hidden"); 
 
-  const expandPanel = (newPanelState) =>
+  const expandPanel = (newPanelState, newPanelWidth) =>
   {
-    setPanelWidth('200px')
-    console.log(newPanelState)
+    setPanelWidth(newPanelWidth)
+    console.log(newPanelWidth)
     setPanelState(newPanelState)
   }
 

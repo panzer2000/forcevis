@@ -1,11 +1,14 @@
 import React from 'react';
+import Panel_Data from './Panel_Data';
+import Panel_Filter from './Panel_Filter';
+import Panel_Settings from './Panel_Settings';
 
 export function SidePanel({panelWidth, panelState, expand, contract}) {
   
 
-    if (panelWidth === '200px') {        
+    if (panelState != "Hidden") {        
         return (
-        <div class="sidebar-left" style={{width: '200px'}}>
+        <div class="sidebar-left" style={{width: panelWidth}}>
             <div >
                 <img class="collapseButton"
                     src="icons4.png"
@@ -16,22 +19,19 @@ export function SidePanel({panelWidth, panelState, expand, contract}) {
             </div>
             { panelState == "Data" && 
                 <div>
-                    {panelWidth}<p/>
-                    Data
+                    <Panel_Data/>
                 </div>   
             }
             
             { panelState == "Filter" && 
                 <div>
-                    {panelWidth}<p/>
-                    Filter
+                    <Panel_Filter/>
                 </div>   
             }
 
             { panelState == "Settings" && 
                 <div>
-                    {panelWidth}<p/>
-                    Settings
+                    <Panel_Settings/>
                 </div>   
             }
 

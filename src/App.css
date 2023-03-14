@@ -36,27 +36,34 @@ html, body {
 .sidebar-left {
   flex: none;
   background: #252526;
-  padding: 10px;
-  padding-left: 20px;
+  padding: 15px;
+  padding-left: 15px;
   transition: width ease 0.1s;
   overflow: auto;
   color: white;
+}
+.sidebar-panel {
+
+  border-radius: 10px;
+  background: #333333;
+  padding: 10px;
 }
 .menu {
   flex: none;
   background: #333333;
   padding-top: 10px;
-  padding-left: 10px;
+  padding-left: 0px;
   padding-right: 10x;
   padding-bottom: 30px;
-  width: 38px; 
+  width: 45px; 
   overflow: auto;
   color: white;
+
 }
 .menuitem {
   flex: none;
   padding-top: 10px;
-  padding-left: 0px;
+  padding-left: 8px;
   padding-right: 0px;
   padding-bottom: 10px;
   /* width: 32px;  */
@@ -69,7 +76,7 @@ html, body {
 .menuitem:hover {
   flex: none;
   padding-top: 10px;
-  padding-left: 0px;
+  padding-left: 8px;
   padding-right: 0px;
   padding-bottom: 10px;
   /* width: 25px;  */
@@ -93,9 +100,9 @@ html, body {
 
 .splitter {
   flex: none;
-  width: 1px;
+  width: 2px;
   cursor: col-resize;
-  background: #000000;
+  background: #333333;
 }
 .content-container {
   flex: 1 1 auto;
@@ -120,4 +127,25 @@ footer {
   background: #3C3C3C;
   color: white;
   padding: 5px;
+}
+
+/* Works on Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #252526, #252526;
+}
+
+/* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 15px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #252526;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: rgb(134, 134, 134);
+  border-radius: 20px;
+  border: 3px solid rgb(61, 61, 61);
 }

@@ -6,6 +6,12 @@ export var baseData  // The raw, as-loaded data set involving only Groups (optio
 
 export var renderData // The filtered, group expand/collapse-aware set of baseData including node location, current velocity, force, color, size and other display information
                      // renderData holds everything that the play loop needs to perform calculations and display the graph
+export var showDebugInfo = false
+
+export function setShowDebugInfo(flag)
+{
+   showDebugInfo = flag
+}
 
 // The user decides to start with either 
 export function populateRenderData(initOption){
