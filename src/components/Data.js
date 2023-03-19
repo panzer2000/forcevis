@@ -6,6 +6,11 @@ export var baseData  // The raw, as-loaded data set involving only Groups (optio
 
 export var renderData // The filtered, group expand/collapse-aware set of baseData including node location, current velocity, force, color, size and other display information
                      // renderData holds everything that the play loop needs to perform calculations and display the graph
+                      = {
+                        nodes: [],
+                        links: [],
+                        groups: []
+                    };
 export var showDebugInfo = false
 
 export function setShowDebugInfo(flag)
@@ -15,6 +20,15 @@ export function setShowDebugInfo(flag)
 
 // The user decides to start with either 
 export function populateRenderData(initOption){
+
+   renderData // The filtered, group expand/collapse-aware set of baseData including node location, current velocity, force, color, size and other display information
+                     // renderData holds everything that the play loop needs to perform calculations and display the graph
+                      = {
+                        nodes: [],
+                        links: [],
+                        groups: []
+                    };
+                    
 console.log("populateRenderData");
    baseData.baseNodes.forEach(element => {
       renderData.nodes.push(element)
@@ -27,10 +41,24 @@ console.log("populateRenderData");
    baseData.baseGroups.forEach(element => {
       renderData.groups.push(element)
    });
-   console.log("end of populateRenderData");
+
+   renderData.nodes.forEach(element => {
+      element.x = 500 + Math.random() * 5
+      element.y = 500 + Math.random() * 5
+      element.xv = 0
+      element.yv = 0
+   });
+
+   renderData.links.forEach(element => {
+      element.fromNode = renderData.nodes.find(x => x.id == element.fromId)
+      element.toNode = renderData.nodes.find(x => x.id == element.toId)
+   });
+
+   console.log("end of populateRenderData:");
+   console.log(renderData);
 }
 
-export async function populateBaseData(){
+export async function populateBaseData(path, showError, setData, updateFileName){
  
 // const jsonData = require('../lesMis.json');
 // baseData = jsonData;
@@ -39,13 +67,29 @@ export async function populateBaseData(){
  
   // Request made to the backend api
   // Send formData object
-  const res = await axios.get("http://skforcegraph.s3-website-ap-southeast-2.amazonaws.com/lesMis.json")
-  console.log("populateBaseData");
- console.log(res.data)
 
- baseData = res.data;
+//"http://skforcegraph.s3-website-ap-southeast-2.amazonaws.com/lesMis.json"
 
+console.log(showError)
+try {
+   const res = await axios.get(path)
+   baseData = res.data;
+   showError("")
+   setData(baseData);
+   updateFileName(path)
+   console.log("res.data")
+   console.log(res.data)
+   populateRenderData()
+} catch (error) {
+	baseData = null;
+   console.log(error.message)
+   showError(error.message)
 }
+
+
+  console.log("populateBaseData");
+}
+
 
 export var InitOption = {
    ExpandAll: 'ExpandAll',

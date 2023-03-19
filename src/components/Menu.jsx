@@ -18,7 +18,7 @@ var SettingsIcon = panelState === "Settings" ? "highlight1.png" : "highlight2.pn
           <img class="menuitem"
               src="icons1.png"
               alt="car"
-              onClick={() => expand("Data", "200px")}
+              onClick={() => expand("Data", "300px")}
               width="25px" 
               height="25px"
           />

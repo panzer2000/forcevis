@@ -30,7 +30,7 @@ export function Panel_Settings() {
   const Checkbox = ({ label, value, onChange }) => {
     return (
       <label>
-        <input type="checkbox" checked={value} onChange={onChange} />
+        <input class="Checkbox" type="checkbox" checked={value} onChange={onChange} />
         {label}
       </label>
     );

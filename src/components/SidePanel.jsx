@@ -3,7 +3,7 @@ import Panel_Data from './Panel_Data';
 import Panel_Filter from './Panel_Filter';
 import Panel_Settings from './Panel_Settings';
 
-export function SidePanel({panelWidth, panelState, expand, contract}) {
+export function SidePanel({panelWidth, panelState, expand, contract, fileName, updateFileName}) {
   
 
     if (panelState != "Hidden") {        
@@ -19,7 +19,7 @@ export function SidePanel({panelWidth, panelState, expand, contract}) {
             </div>
             { panelState == "Data" && 
                 <div>
-                    <Panel_Data/>
+                    <Panel_Data fileName={fileName} updateFileName={updateFileName}/>
                 </div>   
             }
             

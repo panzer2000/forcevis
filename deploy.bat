@@ -1,0 +1,1 @@
+aws s3 cp C:\development\forcevis\build s3://skforcegraph --recursive

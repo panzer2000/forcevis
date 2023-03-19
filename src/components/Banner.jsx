@@ -1,11 +1,16 @@
-export function Banner() {
+export function Banner(props) {
       
-    return (
+
+  console.log(props)
+  const fn = props.fileName ?? "No Data FIle Loaded"
+
+  return (
        <div>
 
-        <div>
-    FORCE VISUALISATION GRAPH
-        </div>
+
+    FORCE VISUALISATION GRAPH: 
+
+        <span class="Spacer-h" style={{ color: "#488EF7"}}>{fn.split('\\').pop().split('/').pop()}</span>
       </div>
     )
   

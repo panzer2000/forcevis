@@ -1,0 +1,17 @@
+{
+    "baseNodes":
+    [
+       { "id": "Napoleon", "name": "Napoleon" , "groupId": "1"},
+       { "id": "MlleBaptistine", "name": "MlleBaptistine"  , "groupId": "1"}
+  
+    ],
+   "baseLinks":
+    [      
+       { "fromId": "Napoleon", "toId": "Myriel"},
+       { "fromId": "MlleBaptistine", "toId": "Myriel" }
+    ],
+   "baseGroups":
+    [
+       { "id": "1", "parentId": "", "color": "#0000ff"}
+    ]
+}
