@@ -43,10 +43,10 @@ console.log("populateRenderData");
    });
 
    renderData.nodes.forEach(element => {
-      element.x = 500 + Math.random() * 5
-      element.y = 500 + Math.random() * 5
-      element.xv = 0
-      element.yv = 0
+      element.x = Math.random() * 5
+      element.y = Math.random() * 5
+      element.vx = 0
+      element.vy = 0
    });
 
    renderData.links.forEach(element => {
