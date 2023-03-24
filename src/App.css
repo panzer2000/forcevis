@@ -185,10 +185,21 @@ Checkbox {
 }
 Input {
   background:#404040;
-  border:0px
+  border:0px;
+  color:white;
   
 }
-
+.field {
+  background:#404040;
+  border-top: 3px solid transparent;
+  border-bottom: 3px solid transparent;
+  border-right: 3px solid transparent;
+  border-left: 3px solid transparent;
+  color:white;
+  width: 50px;
+  border-radius: 5px;
+  float: right;
+}
 
 
 

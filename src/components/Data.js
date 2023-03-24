@@ -28,8 +28,9 @@ export function populateRenderData(initOption){
                         links: [],
                         groups: []
                     };
+   
                     
-console.log("populateRenderData");
+console.log("populateRenderData start");
    baseData.baseNodes.forEach(element => {
       renderData.nodes.push(element)
    });
@@ -43,15 +44,21 @@ console.log("populateRenderData");
    });
 
    renderData.nodes.forEach(element => {
-      element.x = Math.random() * 5
-      element.y = Math.random() * 5
+      element.x = Math.random() * 50
+      element.y = Math.random() * 50
       element.vx = 0
       element.vy = 0
+      element.relatedNodeIds = [];
    });
 
    renderData.links.forEach(element => {
       element.fromNode = renderData.nodes.find(x => x.id == element.fromId)
       element.toNode = renderData.nodes.find(x => x.id == element.toId)
+
+      element.fromNode.relatedNodeIds.push(element.toId);
+      element.toNode.relatedNodeIds.push(element.fromId);
+
+
    });
 
    console.log("end of populateRenderData:");

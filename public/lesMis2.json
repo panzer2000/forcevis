@@ -1,9 +1,9 @@
 {
    "baseNodes":
    [
-      { "id": "Napoleon", "name": "Napoleon" , "groupId": "1"},
-      { "id": "MlleBaptistine", "name": "MlleBaptistine"  , "groupId": "1"},
-      { "id": "Myriel", "name": "Myriel"  , "groupId": "1"}
+      { "id": "Napoleon", "name": "Napoleon" , "groupId": ""},
+      { "id": "MlleBaptistine", "name": "MlleBaptistine"  , "groupId": ""},
+      { "id": "Myriel", "name": "Myriel"  , "groupId": ""}
  
    ],
   "baseLinks":

@@ -6,21 +6,30 @@ import * as Draw from './DrawHelper';
 import * as MathHelper from './MathHelper'
 
 export function CanvasHolder() {
-  
-  
+    
 // define the force parameters
-const k = 0.05; // spring constant
-const l = 200; // natural length of the springs
 const friction = 0.95; // friction coefficient
+const REPULSION_FORCE = 80;
+const REPULSION_DISTANCE = 300;// if distance between two unconnected nodes is less than this they will repulse
+const Repulsion_Distance_SameGroup = 50;
+const Repulsion_Distance_Partners = 400; // if distance between two connected nodes is less than this they will repulse
+const ATTRACTION_FORCE = 60;
+const MIN_ATTRACT_DISTANCE = 200; // if any two nodes are closer than this they will attract
+const REPULSION_POWER = 3;
+const TIMEDELTA = 0.05;
+    // Helper Functions
 
-const REPULSION_FORCE = 80000;
-const REPULSION_DISTANCE = 4;
-const Repulsion_Distance_SameGroup = 0.5;
-const Repulsion_Distance_Partners = 6;
-const ATTRACTION_FORCE = 60000;
-const Min_Attraction_Distance = 1;
+    const GetRepulsionDistance = (node1, node2) =>
+    {
+        // Are the two nodes partners?
+        if (node1.relatedNodeIds.includes(node2.Id))
+            return Repulsion_Distance_Partners;
 
-    // Grab our base data
+        if (node1.groupId != "" && node1.groupId == node2.GroupId)
+            return Repulsion_Distance_SameGroup;
+
+        return REPULSION_DISTANCE;
+    }
     
 
     // Draw is the primary play loop. It is executed 60 times per second from within useCanvas.jsx
@@ -32,37 +41,85 @@ const Min_Attraction_Distance = 1;
           var centerX = ctx.canvas.width / 2
           var centerY = ctx.canvas.height / 2
 
-          // Calculate forces
-         // apply the spring forces to the nodes
-          for (const link of Data.renderData.links) {
-            const source = link.fromNode;
-            const target = link.toNode;
-            const dx = target.x - source.x;
-            const dy = target.y - source.y;
-            const distance = Math.sqrt(dx*dx + dy*dy);
-            const force = k * (distance - l);
-            const fx = force * dx / distance;
-            const fy = force * dy / distance;
-            source.vx += fx;
-            source.vy += fy;
-            target.vx -= fx;
-            target.vy -= fy;
-          }
 
-          // apply the friction force to the nodes
+      // Apply Repulsion Force - all nodes repulse all other nodes - need to iterate over all node 2 node pairs
+      Data.renderData.nodes.forEach(node1 => {
+        Data.renderData.nodes.forEach(node2 => {
+          if (node1 != node2) // && node1.go.transform != Globals.CurrentlyDraggedTransform)
+          {
+
+            // determine min distance for these nodes at which repulsion kicks in depending on whether they are in the same group, partners or unrelated
+            const repulsion_dist = GetRepulsionDistance(node1, node2);
+
+            const dx = node2.x - node1.x;
+            const dy = node2.y - node1.y;
+    
+            var distance = Math.sqrt(dx * dx + dy * dy)
+            var ndx = dx / distance; // normalized x direction
+            var ndy = dy / distance; // normalized y direction
+
+              if (distance <= repulsion_dist)
+              {
+
+                  // Compute distance force
+                  var distanceForce = 0;
+                  
+                  // Power (MaxDist - Dist) ^2  / MaxDit ^2  
+                  distanceForce = Math.pow(repulsion_dist - distance, REPULSION_POWER) / Math.pow(repulsion_dist, REPULSION_POWER);
+
+                  var fx = distanceForce * REPULSION_FORCE  * ndx * TIMEDELTA;
+                  var fy = distanceForce * REPULSION_FORCE  * ndy * TIMEDELTA;
+
+                  //node1.go.GetComponent<Rigidbody2D>().AddForce(forceDirection * distanceForce * REPULSION_FORCE * Time.deltaTime * node1.Size * node2.Size);
+
+                  // Apply Forces
+                  node1.vx -= fx;
+                  node1.vy -= fy;
+
+              }
+          }
+        })
+      })
+
+// Attraction force - things that are linked attract
+      for (const link of Data.renderData.links) {
+       
+        const node1 = link.fromNode;
+        const node2 = link.toNode;
+
+        const dx = node2.x - node1.x;
+        const dy = node2.y - node1.y;
+
+        var distance = Math.sqrt(dx * dx + dy * dy) // magnitude of entire vector
+        var ndx = dx / distance; // normalized x direction
+        var ndy = dy / distance; // normalized y direction
+
+        var distanceForce = 0;
+        if (distance <= MIN_ATTRACT_DISTANCE) // we are within min attract distance. fall off attract force exponentially towards 0 
+            distanceForce = 0 //1 - Math.pow(MIN_ATTRACT_DISTANCE - distance, REPULSION_POWER) / Math.pow(MIN_ATTRACT_DISTANCE, REPULSION_POWER);
+        else // outside of min attract distance we attract uniformly
+            distanceForce = 1;
+
+        var fx = ndx * distanceForce * ATTRACTION_FORCE * TIMEDELTA
+        var fy = ndy * distanceForce * ATTRACTION_FORCE * TIMEDELTA
+
+        node1.vx += fx;
+        node1.vy += fy;
+        node2.vx -= fx;
+        node2.vy -= fy;
+
+      }
+
+
+          // apply the friction force and update positions of nodes
           for (const node of Data.renderData.nodes) {
             node.vx *= friction;
             node.vy *= friction;
-          }
 
-          // update the node positions
-          for (const node of Data.renderData.nodes) {
             node.x += node.vx;
             node.y += node.vy;
           }
-          
-          
-          // Apply forces - move actual locations based on force, damping and mass
+
       
           // Prepare canvas for next frame
           ctx.fillStyle = '#1E1E1E'
@@ -70,28 +127,13 @@ const Min_Attraction_Distance = 1;
       
           // Draw links
           Data.renderData.links.forEach(element => {
-            Draw.DrawLink(ctx, centerX + element.fromNode.x, centerY + element.fromNode.y, centerX + element.toNode.x, centerY + element.toNode.y, "#555555", 5)
+            Draw.DrawLink(ctx, centerX + element.fromNode.x, centerY + element.fromNode.y, centerX + element.toNode.x, centerY + element.toNode.y, "#555555", 1)
          });
           // Draw Shapes
 
           Data.renderData.nodes.forEach(element => {
-            Draw.DrawNode(ctx, centerX + element.x, centerY + element.y, 'rgba(250,0,0,1)', "#555555", 20,3)
+            Draw.DrawNode(ctx, centerX + element.x, centerY + element.y, 'rgba(250,0,0,1)', "#555555", 5,3)
          });
-
-
-          // for (let step = 0; step < Data.renderData.nodes.length -1; step++) {
-            
-          //   var x = MathHelper.RandomInt(ctx.canvas.width-100) + 50
-          //   var y = MathHelper.RandomInt(ctx.canvas.height-100) + 50
-      
-          //   Draw.DrawLink(ctx, x, y, x+100, y, "#555555", 5)
-          //   Draw.DrawNode(ctx, x, y, 'rgba(250,0,0,1)', "#555555", 20,3)
-          //   Draw.WriteText(ctx, "normal 8pt Arial", Data.baseData.baseNodes[step].name, x, y, "White")
-      
-          // }
-
-
-          // Draw.DrawNode(ctx, centerX, centerY, 'rgba(250,0,0,1)', "#555555", 20,3)
 
           if(Data.baseData && Data.baseData != null)
           DebugInfo.showDebugInfo(ctx);
