@@ -3,7 +3,7 @@ import Panel_Data from './Panel_Data';
 import Panel_Filter from './Panel_Filter';
 import Panel_Settings from './Panel_Settings';
 
-export function SidePanel({panelWidth, panelState, expand, contract, fileName, updateFileName}) {
+export function SidePanel({panelWidth, panelState, expand, contract, fileName, updateFileName, physicsParams, updatePhysicsParams}) {
   
 
     if (panelState != "Hidden") {        
@@ -19,7 +19,7 @@ export function SidePanel({panelWidth, panelState, expand, contract, fileName, u
             </div>
             { panelState == "Data" && 
                 <div>
-                    <Panel_Data fileName={fileName} updateFileName={updateFileName}/>
+                    <Panel_Data fileName={fileName} updateFileName={updateFileName} physicsParams={physicsParams} updatePhysicsParams={updatePhysicsParams}/>
                 </div>   
             }
             
@@ -31,7 +31,7 @@ export function SidePanel({panelWidth, panelState, expand, contract, fileName, u
 
             { panelState == "Settings" && 
                 <div>
-                    <Panel_Settings/>
+                    <Panel_Settings physicsParams={physicsParams} updatePhysicsParams={updatePhysicsParams}/>
                 </div>   
             }
 

@@ -13,29 +13,6 @@ export var renderData // The filtered, group expand/collapse-aware set of baseDa
                     };
 export var showDebugInfo = false
 
-export var friction = 0.95; // friction coefficient
-export var REPULSION_FORCE = 80;
-export var REPULSION_DISTANCE = 300;// if distance between two unconnected nodes is less than this they will repulse
-export var Repulsion_Distance_SameGroup = 50;
-export var Repulsion_Distance_Partners = 400; // if distance between two connected nodes is less than this they will repulse
-export var ATTRACTION_FORCE = 60;
-export var MIN_ATTRACT_DISTANCE = 200; // if any two nodes are closer than this they will attract
-export var REPULSION_POWER = 3;
-export var TIMEDELTA = 0.05;
-
-export function UpdateValues(params)
-{
-   friction = params.friction; // friction coefficient
-   REPULSION_FORCE = params.REPULSION_FORCE;
-   REPULSION_DISTANCE = params.REPULSION_DISTANCE;// if distance between two unconnected nodes is less than this they will repulse
-   Repulsion_Distance_SameGroup = params.Repulsion_Distance_SameGroup;
-   Repulsion_Distance_Partners = params.Repulsion_Distance_Partners; // if distance between two connected nodes is less than this they will repulse
-   ATTRACTION_FORCE = params.ATTRACTION_FORCE;
-   MIN_ATTRACT_DISTANCE = params.MIN_ATTRACT_DISTANCE; // if any two nodes are closer than this they will attract
-   REPULSION_POWER = params.REPULSION_POWER;
-   TIMEDELTA = params.TIMEDELTA;
-}
-
 export function setShowDebugInfo(flag)
 {
    showDebugInfo = flag
@@ -93,7 +70,7 @@ console.log("populateRenderData start");
    console.log(renderData);
 }
 
-export async function populateBaseData(path, showError, setData, updateFileName){
+export async function populateBaseData(path, showError){
  
 // const jsonData = require('../lesMis.json');
 // baseData = jsonData;
@@ -110,8 +87,8 @@ try {
    const res = await axios.get(path)
    baseData = res.data;
    showError("")
-   setData(baseData);
-   updateFileName(path)
+   //setData(baseData);
+   //updateFileName(path)
    console.log("res.data")
    console.log(res.data)
    populateRenderData()

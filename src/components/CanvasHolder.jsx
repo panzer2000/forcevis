@@ -5,7 +5,7 @@ import * as Data from './Data';
 import * as Draw from './DrawHelper';
 import * as MathHelper from './MathHelper'
 
-export function CanvasHolder() {
+export function CanvasHolder(params) {
     
 // define the force parameters
 // var friction = 0.95; // friction coefficient
@@ -23,12 +23,12 @@ export function CanvasHolder() {
     {
         // Are the two nodes partners?
         if (node1.relatedNodeIds.includes(node2.Id))
-            return Data.Repulsion_Distance_Partners;
+            return params.physicsParams.Repulsion_Distance_Partners;
 
         if (node1.groupId != "" && node1.groupId == node2.GroupId)
-            return Data.Repulsion_Distance_SameGroup;
+            return params.physicsParams.Repulsion_Distance_SameGroup;
 
-        return Data.REPULSION_DISTANCE;
+        return params.physicsParams.REPULSION_DISTANCE;
     }
     
 
@@ -65,10 +65,10 @@ export function CanvasHolder() {
                   var distanceForce = 0;
                   
                   // Power (MaxDist - Dist) ^2  / MaxDit ^2  
-                  distanceForce = Math.pow(repulsion_dist - distance, Data.REPULSION_POWER) / Math.pow(repulsion_dist, Data.REPULSION_POWER);
+                  distanceForce = Math.pow(repulsion_dist - distance, params.physicsParams.REPULSION_POWER) / Math.pow(repulsion_dist, params.physicsParams.REPULSION_POWER);
 
-                  var fx = distanceForce * Data.REPULSION_FORCE  * ndx * Data.TIMEDELTA;
-                  var fy = distanceForce * Data.REPULSION_FORCE  * ndy * Data.TIMEDELTA;
+                  var fx = distanceForce * params.physicsParams.REPULSION_FORCE  * ndx * params.physicsParams.TIMEDELTA;
+                  var fy = distanceForce * params.physicsParams.REPULSION_FORCE  * ndy * params.physicsParams.TIMEDELTA;
 
                   //node1.go.GetComponent<Rigidbody2D>().AddForce(forceDirection * distanceForce * REPULSION_FORCE * Time.deltaTime * node1.Size * node2.Size);
 
@@ -95,13 +95,13 @@ export function CanvasHolder() {
         var ndy = dy / distance; // normalized y direction
 
         var distanceForce = 0;
-        if (distance <= Data.MIN_ATTRACT_DISTANCE) // we are within min attract distance. fall off attract force exponentially towards 0 
+        if (distance <= params.physicsParams.MIN_ATTRACT_DISTANCE) // we are within min attract distance. fall off attract force exponentially towards 0 
             distanceForce = 0 //1 - Math.pow(MIN_ATTRACT_DISTANCE - distance, REPULSION_POWER) / Math.pow(MIN_ATTRACT_DISTANCE, REPULSION_POWER);
         else // outside of min attract distance we attract uniformly
             distanceForce = 1;
 
-        var fx = ndx * distanceForce * Data.ATTRACTION_FORCE * Data.TIMEDELTA
-        var fy = ndy * distanceForce * Data.ATTRACTION_FORCE * Data.TIMEDELTA
+        var fx = ndx * distanceForce * params.physicsParams.ATTRACTION_FORCE * params.physicsParams.TIMEDELTA
+        var fy = ndy * distanceForce * params.physicsParams.ATTRACTION_FORCE * params.physicsParams.TIMEDELTA
 
         node1.vx += fx;
         node1.vy += fy;
@@ -113,8 +113,8 @@ export function CanvasHolder() {
 
           // apply the friction force and update positions of nodes
           for (const node of Data.renderData.nodes) {
-            node.vx *= Data.friction;
-            node.vy *= Data.friction;
+            node.vx *= params.physicsParams.FRICTION;
+            node.vy *= params.physicsParams.FRICTION;
 
             node.x += node.vx;
             node.y += node.vy;

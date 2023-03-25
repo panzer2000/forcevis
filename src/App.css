@@ -49,6 +49,11 @@ html, body {
   padding: 10px;
   color:#a6a6a6;
 }
+.panel-heading {
+  color: white;
+}
+
+
 .menu {
   flex: none;
   background: #333333;
@@ -192,14 +197,16 @@ Input {
 }
 .field {
   background:#404040;
+  
   border-top: 3px solid transparent;
   border-bottom: 3px solid transparent;
   border-right: 3px solid transparent;
   border-left: 3px solid transparent;
-  color:white;
+  color: #a6a6a6;
   width: 50px;
   border-radius: 5px;
   float: right;
+  text-align: right;
 }
 
 
