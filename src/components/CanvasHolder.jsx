@@ -8,27 +8,27 @@ import * as MathHelper from './MathHelper'
 export function CanvasHolder() {
     
 // define the force parameters
-const friction = 0.95; // friction coefficient
-const REPULSION_FORCE = 80;
-const REPULSION_DISTANCE = 300;// if distance between two unconnected nodes is less than this they will repulse
-const Repulsion_Distance_SameGroup = 50;
-const Repulsion_Distance_Partners = 400; // if distance between two connected nodes is less than this they will repulse
-const ATTRACTION_FORCE = 60;
-const MIN_ATTRACT_DISTANCE = 200; // if any two nodes are closer than this they will attract
-const REPULSION_POWER = 3;
-const TIMEDELTA = 0.05;
+// var friction = 0.95; // friction coefficient
+// var REPULSION_FORCE = 80;
+// var REPULSION_DISTANCE = 300;// if distance between two unconnected nodes is less than this they will repulse
+// var Repulsion_Distance_SameGroup = 50;
+// var Repulsion_Distance_Partners = 400; // if distance between two connected nodes is less than this they will repulse
+// var ATTRACTION_FORCE = 60;
+// var MIN_ATTRACT_DISTANCE = 200; // if any two nodes are closer than this they will attract
+// var REPULSION_POWER = 3;
+// var TIMEDELTA = 0.05;
     // Helper Functions
 
     const GetRepulsionDistance = (node1, node2) =>
     {
         // Are the two nodes partners?
         if (node1.relatedNodeIds.includes(node2.Id))
-            return Repulsion_Distance_Partners;
+            return Data.Repulsion_Distance_Partners;
 
         if (node1.groupId != "" && node1.groupId == node2.GroupId)
-            return Repulsion_Distance_SameGroup;
+            return Data.Repulsion_Distance_SameGroup;
 
-        return REPULSION_DISTANCE;
+        return Data.REPULSION_DISTANCE;
     }
     
 
@@ -65,10 +65,10 @@ const TIMEDELTA = 0.05;
                   var distanceForce = 0;
                   
                   // Power (MaxDist - Dist) ^2  / MaxDit ^2  
-                  distanceForce = Math.pow(repulsion_dist - distance, REPULSION_POWER) / Math.pow(repulsion_dist, REPULSION_POWER);
+                  distanceForce = Math.pow(repulsion_dist - distance, Data.REPULSION_POWER) / Math.pow(repulsion_dist, Data.REPULSION_POWER);
 
-                  var fx = distanceForce * REPULSION_FORCE  * ndx * TIMEDELTA;
-                  var fy = distanceForce * REPULSION_FORCE  * ndy * TIMEDELTA;
+                  var fx = distanceForce * Data.REPULSION_FORCE  * ndx * Data.TIMEDELTA;
+                  var fy = distanceForce * Data.REPULSION_FORCE  * ndy * Data.TIMEDELTA;
 
                   //node1.go.GetComponent<Rigidbody2D>().AddForce(forceDirection * distanceForce * REPULSION_FORCE * Time.deltaTime * node1.Size * node2.Size);
 
@@ -95,13 +95,13 @@ const TIMEDELTA = 0.05;
         var ndy = dy / distance; // normalized y direction
 
         var distanceForce = 0;
-        if (distance <= MIN_ATTRACT_DISTANCE) // we are within min attract distance. fall off attract force exponentially towards 0 
+        if (distance <= Data.MIN_ATTRACT_DISTANCE) // we are within min attract distance. fall off attract force exponentially towards 0 
             distanceForce = 0 //1 - Math.pow(MIN_ATTRACT_DISTANCE - distance, REPULSION_POWER) / Math.pow(MIN_ATTRACT_DISTANCE, REPULSION_POWER);
         else // outside of min attract distance we attract uniformly
             distanceForce = 1;
 
-        var fx = ndx * distanceForce * ATTRACTION_FORCE * TIMEDELTA
-        var fy = ndy * distanceForce * ATTRACTION_FORCE * TIMEDELTA
+        var fx = ndx * distanceForce * Data.ATTRACTION_FORCE * Data.TIMEDELTA
+        var fy = ndy * distanceForce * Data.ATTRACTION_FORCE * Data.TIMEDELTA
 
         node1.vx += fx;
         node1.vy += fy;
@@ -113,8 +113,8 @@ const TIMEDELTA = 0.05;
 
           // apply the friction force and update positions of nodes
           for (const node of Data.renderData.nodes) {
-            node.vx *= friction;
-            node.vy *= friction;
+            node.vx *= Data.friction;
+            node.vy *= Data.friction;
 
             node.x += node.vx;
             node.y += node.vy;
