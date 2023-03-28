@@ -25,6 +25,8 @@ export function App() {
       MIN_ATTRACT_DISTANCE : 200, // if any two nodes are closer than this they will attract
       REPULSION_POWER : 3,
       TIMEDELTA : 0.05,
+      showDebugInfo : false,
+      FRICTION : 0.95
   }); 
 
   const expandPanel = (newPanelState, newPanelWidth) =>
@@ -47,10 +49,8 @@ export function App() {
   const fn = params.get("FileName") ?? ""
   console.log("URL FileName:")
   console.log(fn)
-    if(fn=="" && fileName != "Select File To Load")
-      setFileName("Select File To Load")
     
-    if(fn != "" && (fileName == "" || fileName == null))
+    if(fn != "" && (fileName == "Select File To Load" || fileName == null))
       setFileName(fn)
 
   

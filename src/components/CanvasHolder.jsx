@@ -22,7 +22,7 @@ export function CanvasHolder(params) {
     const GetRepulsionDistance = (node1, node2) =>
     {
         // Are the two nodes partners?
-        if (node1.relatedNodeIds.includes(node2.Id))
+        if (node1.relatedNodeIds.includes(node2.id))
             return params.physicsParams.Repulsion_Distance_Partners;
 
         if (node1.groupId != "" && node1.groupId == node2.GroupId)
@@ -95,10 +95,13 @@ export function CanvasHolder(params) {
         var ndy = dy / distance; // normalized y direction
 
         var distanceForce = 0;
-        if (distance <= params.physicsParams.MIN_ATTRACT_DISTANCE) // we are within min attract distance. fall off attract force exponentially towards 0 
-            distanceForce = 0 //1 - Math.pow(MIN_ATTRACT_DISTANCE - distance, REPULSION_POWER) / Math.pow(MIN_ATTRACT_DISTANCE, REPULSION_POWER);
-        else // outside of min attract distance we attract uniformly
-            distanceForce = 1;
+        if (distance >= params.physicsParams.MIN_ATTRACT_DISTANCE) 
+          distanceForce = 1; // outside of attract distance we attract uniformly
+        else // we are within min attract distance. fall off attract force exponentially towards 0 
+          distanceForce = 0//1 - Math.pow(params.physicsParams.MIN_ATTRACT_DISTANCE - distance, params.physicsParams.REPULSION_POWER) / Math.pow(params.physicsParams.MIN_ATTRACT_DISTANCE, params.physicsParams.REPULSION_POWER); // Inside attract distance. falloff with power
+          //1 - Math.pow(MIN_ATTRACT_DISTANCE - distance, REPULSION_POWER) / Math.pow(MIN_ATTRACT_DISTANCE, REPULSION_POWER);
+        
+
 
         var fx = ndx * distanceForce * params.physicsParams.ATTRACTION_FORCE * params.physicsParams.TIMEDELTA
         var fy = ndy * distanceForce * params.physicsParams.ATTRACTION_FORCE * params.physicsParams.TIMEDELTA

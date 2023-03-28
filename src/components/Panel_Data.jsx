@@ -4,7 +4,6 @@ import * as Data from './Data'
 export function Panel_Data(props) {
       
 
-      const [name, setName] = useState("");
       const [error, setError] = useState("");
 
       const showError = (message) =>
@@ -67,15 +66,15 @@ export function Panel_Data(props) {
           Path to data
           <button class="button-10" type="button" style={{float: 'right'}} onClick={() => loadData("")}>Load</button>
 
-              <div class="Spacer-v">
-              {  <textarea  class="Textarea"
-                  name="Text1" 
-                  value={props.fileName}
-                  rows="4"
-                  cols="32" 
-                  onChange={(e) => handleChange(e.target.value)}>             
-                </textarea>}
-              </div>              
+          <div class="Spacer-v">
+          <textarea  class="Textarea"
+              name="Text1" 
+              value={props.fileName}
+              rows="4"
+              cols="32" 
+              onChange={(e) => handleChange(e.target.value)}>             
+            </textarea>
+          </div>              
 
           <Errorbox error={error}/>
           <Stats />

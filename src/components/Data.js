@@ -18,10 +18,6 @@ export function setShowDebugInfo(flag)
    showDebugInfo = flag
 }
 
-export function setSimulationParameters(parameters)
-{
-
-}
 
 // The user decides to start with either 
 export function populateRenderData(initOption){
