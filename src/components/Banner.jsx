@@ -11,7 +11,7 @@ export function Banner(props) {
     console.log("loadData. name=")
     console.log(props.fileName)
     if(props.fileName != "Select File To Load")
-      Data.populateRenderData()
+      Data.populateRenderData(props.physicsParams)
   }
 
   return (
@@ -21,6 +21,9 @@ export function Banner(props) {
         <span class="Spacer-h" style={{ color: "#488EF7"}}>{fn.split('\\').pop().split('/').pop()}</span>
         <span class="Spacer-h">
             <button class="button-10" type="button" onClick={() => refreshData("")}>Restart</button>
+        </span>
+        <span class="Spacer-h">
+            <button class="button-10" type="button" onClick={() => Data.calc(50, props.physicsParams)}>Continue</button>
         </span>
       </div>
     )

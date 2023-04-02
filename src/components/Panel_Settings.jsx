@@ -21,6 +21,9 @@ export function Panel_Settings(params) {
       params.updatePhysicsParams(prevState => ({ ...prevState,  Repulsion_Distance_SameGroup: value })) 
     };
 
+    const Repulsion_Distance_Siblings_Change = (value) => {
+      params.updatePhysicsParams(prevState => ({ ...prevState,  Repulsion_Distance_Siblings: value })) 
+    };
     const Repulsion_Distance_Partners_Change = (value) => {
       params.updatePhysicsParams(prevState => ({ ...prevState,  Repulsion_Distance_Partners: value })) 
     };
@@ -64,13 +67,14 @@ console.log(params);
                 Repulsion Force
                 <input class="field" name="Text1" value={params.physicsParams.REPULSION_FORCE} onChange={(e) => REPULSION_FORCE_Change(e.target.value)}></input><p/>
               <div class="panel-heading">Repulse if closer than<p/></div>
-                Unrelated nodes
-                <input className="field" name="Text1" value={params.physicsParams.REPULSION_DISTANCE} onChange={(e) => REPULSION_DISTANCE_Change(e.target.value)}></input><p/>
-                Grouped nodes
-                <input class="field" name="Text1" value={params.physicsParams.Repulsion_Distance_SameGroup} onChange={(e) => Repulsion_Distance_SameGroup_Change(e.target.value)}></input><p/>
                 Linked nodes
                 <input class="field" name="Text1" value={params.physicsParams.Repulsion_Distance_Partners} onChange={(e) => Repulsion_Distance_Partners_Change(e.target.value)}></input><p/>
- 
+                Siblings
+                <input class="field" name="Text1" value={params.physicsParams.Repulsion_Distance_Siblings} onChange={(e) => Repulsion_Distance_Siblings_Change(e.target.value)}></input><p/>
+                Same Group
+                <input class="field" name="Text1" value={params.physicsParams.Repulsion_Distance_SameGroup} onChange={(e) => Repulsion_Distance_SameGroup_Change(e.target.value)}></input><p/>
+                Unrelated
+                <input className="field" name="Text1" value={params.physicsParams.REPULSION_DISTANCE} onChange={(e) => REPULSION_DISTANCE_Change(e.target.value)}></input><p/>
               </div> <p/>
               <div class="sidebar-panel">
               <div class="panel-heading">Attraction<p/></div>

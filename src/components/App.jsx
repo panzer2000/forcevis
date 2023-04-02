@@ -14,19 +14,20 @@ export function App() {
       
   const [panelWidth, setPanelWidth] = useState("300px"); 
   const [panelState, setPanelState] = useState("Data"); 
-  const [fileName, setFileName] = useState("Select File To Load"); 
+  const [fileName, setFileName] = useState("lesMis.json");//Select File To Load"); 
   const [physicsParams, setPhysicsParams] = useState({
-      FRICTION : 0.95, // FRICTION coefficient
-      REPULSION_FORCE : 80,
-      REPULSION_DISTANCE : 300,// if distance between two unconnected nodes is less than this they will repulse
-      Repulsion_Distance_SameGroup : 50,
+      REPULSION_FORCE : 20,
+      REPULSION_DISTANCE : 500,// if distance between two unconnected nodes is less than this they will repulse
+      Repulsion_Distance_SameGroup : 100,
       Repulsion_Distance_Partners : 400, // if distance between two connected nodes is less than this they will repulse
-      ATTRACTION_FORCE : 60,
-      MIN_ATTRACT_DISTANCE : 200, // if any two nodes are closer than this they will attract
+      Repulsion_Distance_Siblings : 150, // if distance between two connected nodes is less than this they will repulse
+      ATTRACTION_FORCE : 30,
+      MIN_ATTRACT_DISTANCE : 100, // if any two nodes are closer than this they will attract
       REPULSION_POWER : 3,
       TIMEDELTA : 0.05,
       showDebugInfo : false,
-      FRICTION : 0.95
+      FRICTION : 0.98,
+      SolveIterations : 400
   }); 
 
   const expandPanel = (newPanelState, newPanelWidth) =>
@@ -60,7 +61,7 @@ export function App() {
    
     <div class="flex-master">
         <header class="banner">
-            <Banner fileName={fileName}/>
+            <Banner fileName={fileName} physicsParams={physicsParams}/>
         </header>
         <div class="page-content">
             <nav class="menu">

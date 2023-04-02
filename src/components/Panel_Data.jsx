@@ -17,7 +17,7 @@ export function Panel_Data(props) {
         console.log("loadData. name=")
         console.log(props.fileName)
         if(props.fileName != "Select File To Load")
-          Data.populateBaseData(props.fileName, showError)
+          Data.populateBaseData(props.fileName, showError, props.physicsParams)
       }
 
 
