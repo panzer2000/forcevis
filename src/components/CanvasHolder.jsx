@@ -15,8 +15,7 @@ export function CanvasHolder(params) {
         if(Data.renderData && Data.renderData != null)
         {
 
-          var centerX = ctx.canvas.width / 2 + Data.canvasXOffset
-          var centerY = ctx.canvas.height / 2 + Data.canvasYOffset
+
 
           Data.calculateMovement(params.physicsParams)
           Data.setTemperature(Data.temperature * Data.coolDown)
@@ -32,11 +31,10 @@ export function CanvasHolder(params) {
           // Draw Shapes
 
           Data.renderData.nodes.forEach(element => {
-            Draw.DrawNode(ctx, centerX + element.x, centerY + element.y, 'rgba(250,0,0,1)', "#555555", 5,3)
+            Draw.DrawNode(ctx, centerX + element.x, centerY + element.y, 'rgba(0,100,250,1)', "#1E1E1E", 5,3)
          });
 
-          if(Data.baseData && Data.baseData != null)
-          DebugInfo.showDebugInfo(ctx);
+
         }
       }
         
