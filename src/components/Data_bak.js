@@ -6,35 +6,14 @@ export var baseData  // The raw, as-loaded data set involving only Groups (optio
 
 export var renderData // The filtered, group expand/collapse-aware set of baseData including node location, current velocity, force, color, size and other display information
                      // renderData holds everything that the play loop needs to perform calculations and display the graph
-      = {
-      nodes: [],
-      links: [],
-      groups: []
-   };
+                      = {
+                        nodes: [],
+                        links: [],
+                        groups: []
+                    };
 export var showDebugInfo = false
 export var canvasXOffset = 0;
 export var canvasYOffset = 0;
-
-
-// We have a coordinate in node location coordinates and want to convert to an offset from top left of canvas
-export function worldToScreenCoords(ctx, x, y)
-{
-   var centerX = x + ctx.canvas.width / 2 + canvasXOffset
-   var centerY = y + ctx.canvas.height / 2 + canvasYOffset
-
-   return {x:centerX, y:centerY}
-}
-// We have a coordinate as offset from top left of canvas and want to conver to node location coords
-export function screenToWorldCoords(ctx, x, y)
-{
-   var centerX = x - ctx.canvas.width / 2 - canvasXOffset
-   var centerY = y - ctx.canvas.height / 2 - canvasYOffset
-
-   return {x:centerX, y:centerY}
-}
-
-
-
 export function updateCanvasOffset(x, y)
 {
    canvasXOffset = x
@@ -140,8 +119,8 @@ export function calculateMovement(params)
  
                }
 
-               // Attract any nodes who are further apart than default repulsion distance to stop unlinked nodes from flying off
-               if(distance >= params.REPULSION_DISTANCE + 500 )
+               // attract any nodes who are further apart than default repulsion distance to stop unlinked nodes from flying off
+               if(distance >= params.REPULSION_DISTANCE + 1000 )
                {
                   // Compute distance force
                   var distanceForce = 0;

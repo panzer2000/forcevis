@@ -27,7 +27,8 @@ export function App() {
       TIMEDELTA : 0.05,
       showDebugInfo : false,
       FRICTION : 0.98,
-      SolveIterations : 400
+      SolveIterations : 400,
+      Solver: 0
   }); 
 
   const expandPanel = (newPanelState, newPanelWidth) =>

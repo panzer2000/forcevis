@@ -1,6 +1,14 @@
 
 import React from 'react';
 import * as Data from './Data';
+import Select from 'react-select';
+
+const options = [
+  { value: 0, label: 'Naive' },
+  { value: 1, label: 'Barnes-Hut' }
+]
+
+
 
 export function Panel_Settings(params) {
       
@@ -48,6 +56,56 @@ export function Panel_Settings(params) {
       params.updatePhysicsParams(prevState => ({ ...prevState,  FRICTION: value })) 
     };
 
+    const Solver_Change = e => { {
+      params.updatePhysicsParams(prevState => ({ ...prevState,  Solver: e.value })) 
+      console.log(e.value);
+    };
+  };
+
+  const colourStyles = {
+    control: styles => ({ ...styles, backgroundColor:'#404040', color: '#FFFFFF'}),
+    option: (styles, { data, isDisabled, isFocused, isSelected }) => {
+      const color = 'black';
+      return {
+        ...styles,
+        backgroundColor:'#404040',
+        color: '#FFFFFF',
+        //cursor: isDisabled ? 'not-allowed' : 'default'
+      };
+    }
+  };
+
+  const customStyles = {
+    option: (defaultStyles, state) => ({
+      ...defaultStyles,
+      color: state.isSelected ? "#a8a8a8" : "#a6a6a6",
+      backgroundColor: state.isSelected ? "#404040" : "#404040",
+      padding: "10px",
+      border: "none",
+      boxShadow: "none",
+    }),
+
+    control: (defaultStyles) => ({
+      ...defaultStyles,
+      backgroundColor: "#404040",
+      padding: "1px",
+      border: "none",
+      boxShadow: "none",
+      width: '150px',
+      height: '5px',
+      float: 'right',
+      color: "#a6a6a6",
+      minHeight: '30px',
+      height: '30px',
+    }),
+    valueContainer: (provided, state) => ({
+      ...provided,
+      height: '30px',
+      padding: '0 6px'
+    }),
+    singleValue: (defaultStyles) => ({ ...defaultStyles, color: "#a6a6a6" }),
+  };
+
     //3Data.setShowDebugInfo(params.physicsParams.showDebugInfo);
     console.log("params");
 
@@ -84,7 +142,7 @@ console.log(params);
                 Linked nodes
                 <input class="field" name="Text1" value={params.physicsParams.MIN_ATTRACT_DISTANCE} onChange={(e) => MIN_ATTRACT_DISTANCE_Change(e.target.value)}></input><p/>
               </div> <p/>
-              <div class="sidebar-panel">
+              <div class="sidebar-panel" style={{minHeight: "200px"}}>
               <div class="panel-heading">Other<p/></div>
                 Exponential Power
                 <input class="field" name="Text1" value={params.physicsParams.REPULSION_POWER} onChange={(e) => REPULSION_POWER_Change(e.target.value)}></input><p/>
@@ -92,6 +150,12 @@ console.log(params);
                 <input class="field" name="Text1" value={params.physicsParams.TIMEDELTA} onChange={(e) => TIMEDELTA_Change(e.target.value)}></input><p/>
                 Friction
                 <input class="field" name="Text1" value={params.physicsParams.FRICTION} onChange={(e) => FRICTION_Change(e.target.value)}></input><p/>
+                <table border="0px" padding="0px" width="100%">
+                  <tr>
+                    <td>Solver</td>
+                    <td><Select  options={options} defaultValue={options.find(item => item.value === params.physicsParams.Solver)} onChange={Solver_Change} styles={customStyles}/></td>
+                  </tr>
+                </table>                              
               </div>
             </div>              
           </form>
@@ -100,6 +164,8 @@ console.log(params);
     );
   };
   
+
+
   const Checkbox = ({ label, checked, onChange }) => {
     return (
       <label>

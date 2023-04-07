@@ -26,7 +26,7 @@ import * as Data from './Data';
   }
 
 
-  export function showDebugInfo(ctx){
+  export function showDebugInfo(ctx, mousemoveevent, mousewheelevent){
     if(Data.showDebugInfo)
     {
       ctx.fillStyle = "White";
@@ -34,7 +34,15 @@ import * as Data from './Data';
       ctx.fillText(Data.baseData.baseNodes.length + " objects", 250, 26);
       ctx.fillText(Data.baseData.baseLinks.length + " links", 500, 26);
       ctx.fillText(ctx.canvas.width + " width", 250, 50);
-      ctx.fillText(ctx.canvas.height + " height", 250, 100);
+      ctx.fillText(ctx.canvas.height + " height", 350, 50);
       showFps(ctx)
+
+      var mousemoveworldspace = Data.screenToWorldCoords(ctx, mousemoveevent.clientX, mousemoveevent.clientY);
+      ctx.font      = "normal 10pt Arial";
+      ctx.fillText(`Mouse Pos Canvas coords x: ${mousemoveevent.clientX ?? "none2"} y:${ mousemoveevent.clientY ?? "none"}`, 50 , 80);
+      ctx.fillText(`Mouse Pos world coords x : ${mousemoveworldspace.x ?? "none2"} y:${ mousemoveworldspace.y ?? "none"}`, 50 , 100);
+
+      ctx.fillText(`Wheel deltaY: ${mousewheelevent.deltaY ?? "none"}`, 50 , 120);
+
     }
   }

@@ -20,10 +20,13 @@ export function Banner(props) {
 
         <span class="Spacer-h" style={{ color: "#488EF7"}}>{fn.split('\\').pop().split('/').pop()}</span>
         <span class="Spacer-h">
-            <button class="button-10" type="button" onClick={() => refreshData("")}>Restart</button>
+            <button class="button-10" type="button" onClick={() => refreshData("")}>Restart: 300 Iterations</button>
         </span>
         <span class="Spacer-h">
-            <button class="button-10" type="button" onClick={() => Data.calc(50, props.physicsParams)}>Continue</button>
+            <button class="button-10" type="button" onClick={() => Data.calc(50, props.physicsParams)}>+50 Iterations</button>
+        </span>
+        <span class="Spacer-h">
+            <button class="button-10" type="button" onClick={() => Data.resetTemperature()}>Reset Temp</button>
         </span>
       </div>
     )

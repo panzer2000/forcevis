@@ -15,7 +15,8 @@ export function CanvasHolder(params) {
         if(Data.renderData && Data.renderData != null)
         {
 
-
+          var centerX = ctx.canvas.width / 2 + Data.canvasXOffset
+          var centerY = ctx.canvas.height / 2 + Data.canvasYOffset
 
           Data.calculateMovement(params.physicsParams)
           Data.setTemperature(Data.temperature * Data.coolDown)

@@ -1,6 +1,7 @@
 import { useRef, useEffect } from 'react'
 import * as Data from './Data';
-
+import * as DrawHelper from './DrawHelper';
+import * as DebugInfo from './DebugInfo';
 
 
 function resizeCanvasToDisplaySize(context) {
@@ -26,11 +27,10 @@ const useCanvas = (draw, options={}) => {
     
     canvas = canvasRef.current
 
-   
     // Set the scale factor and initial mouse coordinates
     var mouseX = 0;
     var mouseY = 0;
-    
+
     var context;
     var canvas;
 
@@ -39,10 +39,21 @@ const useCanvas = (draw, options={}) => {
     var movingNode = false;
     var nodeBeingMoved = null;
 
+var mousemoveevent = { clientX: 0, clientY: 0 };
+var mousewheelevent = {deltaY : 0};
+
+const options = [
+  ,
+  { value: 1, label: 'Barnes-Hut' }
+]
+
     function findPointWithinDistance(pointX, pointY, pointsArray, minDistance) {
+      
+      var worldPos = Data.screenToWorldCoords(context, pointX, pointY)
+
       for (let i = 0; i < pointsArray.length; i++) {
         const distance = Math.sqrt(
-          (pointX - pointsArray[i].x) ** 2 + (pointY - pointsArray[i].y) ** 2
+          (worldPos.x - pointsArray[i].x) ** 2 + (worldPos.y - pointsArray[i].y) ** 2
         );
         if (distance <= minDistance) {
           return pointsArray[i];
@@ -57,6 +68,7 @@ const useCanvas = (draw, options={}) => {
       mouseX = e.clientX - canvas.offsetLeft;
       mouseY = e.clientY - canvas.offsetTop;
 
+      mousemoveevent = { clientX: mouseX, clientY: mouseY };
       if(mouseButton === 0 && e.buttons === 1) // the button has jusdt been pressed
       {
         console.log("Mouse:")
@@ -64,7 +76,7 @@ const useCanvas = (draw, options={}) => {
         console.log(e.clientY)
         
         // Check if we have clicked on a node:
-        var nodeBeingMoved = findPointWithinDistance(e.clientX, e.clientY, Data.renderData.nodes, 15)
+        nodeBeingMoved = findPointWithinDistance(mouseX,mouseY, Data.renderData.nodes, 15)
         console.log(nodeBeingMoved)
         if(nodeBeingMoved != null)
           movingNode = true
@@ -76,8 +88,10 @@ const useCanvas = (draw, options={}) => {
         Data.updateCanvasOffset(Data.canvasXOffset + e.movementX, Data.canvasYOffset + e.movementY)       
       }
       if (e.buttons === 1 && movingNode) {
-        nodeBeingMoved.x += e.movementX;
-        nodeBeingMoved.y += e.movementY;        
+        var worldPos = Data.screenToWorldCoords(context, mouseX, mouseY)
+        nodeBeingMoved.x = worldPos.x;
+        nodeBeingMoved.y = worldPos.y;    
+        Data.setTemperature(1)    
       }
       if(e.buttons ===0)
       {
@@ -90,7 +104,7 @@ const useCanvas = (draw, options={}) => {
     canvas.addEventListener("wheel", function(e) {
       // Prevent default scroll behavior
       //e.preventDefault();
-
+      mousewheelevent =  { deltaY: e.deltaY };
       // Get the current mouse position relative to the canvas element
       var mouseCanvasX = mouseX - Data.canvasXOffset;
       var mouseCanvasY = mouseY - Data.canvasYOffset;
@@ -110,14 +124,21 @@ const useCanvas = (draw, options={}) => {
     });
 
     context = canvas.getContext(options.context || '2d')
+
     let frameCount = 0
     let animationFrameId
     const render = () => {
-            frameCount++
+      frameCount++
       resizeCanvasToDisplaySize(context)
       //context.setTransform(Data.transform.scale, 0, 0, Data.transform.scale, canvasX, canvasY);
       draw(context, frameCount)
+
+      if(Data.baseData && Data.baseData != null)
+      DebugInfo.showDebugInfo(context, mousemoveevent, mousewheelevent);
+
       animationFrameId = window.requestAnimationFrame(render)
+
+
     }
     render()
     return () => {
